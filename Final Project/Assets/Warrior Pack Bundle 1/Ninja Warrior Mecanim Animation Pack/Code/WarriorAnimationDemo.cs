@@ -17,6 +17,7 @@ public enum Warrior{
 }
 
 public class WarriorAnimationDemo : MonoBehaviour{
+
 	[HideInInspector]
 	public Animator animator;
 	public Warrior warrior;
@@ -86,9 +87,16 @@ public class WarriorAnimationDemo : MonoBehaviour{
 	bool canChain;
 	[HideInInspector]
 	public bool specialAttack2Bool;
+    PickupScroll pickup;
 
-	void Start(){
-		animator = this.GetComponent<Animator>();
+
+
+
+    void Start()
+    {
+        pickup = GetComponent<PickupScroll>();
+
+        animator = this.GetComponent<Animator>();
 		rigidBody = GetComponent<Rigidbody>();
 		if(warrior == Warrior.Archer){
 			secondaryWeaponModel.gameObject.SetActive(false);
@@ -125,6 +133,7 @@ public class WarriorAnimationDemo : MonoBehaviour{
 		else{
 			isFalling = false;
 		}
+
 	}
 
 	void LateUpdate(){
@@ -137,6 +146,16 @@ public class WarriorAnimationDemo : MonoBehaviour{
 	}
 
 	void Update(){
+
+        //Code to increase runspeed / dash if dash meter is above 0
+        if (Input.GetButton("Dash") && pickup.CurrentHealth > 0 && ! isInAir)
+        {
+            runSpeed = 16f;
+            pickup.CurrentHealth -= 1;
+        }
+        else runSpeed = 8f;
+
+
 		CameraRelativeInput();
 		InAir();
 		JumpingUpdate();
@@ -412,7 +431,30 @@ public class WarriorAnimationDemo : MonoBehaviour{
 		yield return new WaitForSeconds(jumpTime);
 	}
 
-	void AirControl(){
+    // wall jumping test2
+   /* void OnCollisionStay(Collision collision)
+    {
+
+        if (collision.gameObject.tag == "wall")
+        {
+            Debug.Log("hit wall");
+            if (Input.GetButtonDown("Jump"))
+            {
+                canJump = true;
+                animator.SetTrigger("JumpTrigger");
+
+                Vector3 v = rigidBody.velocity;
+                v.x = (-1 * 6);
+                v.y += 10;
+                v.z = (-1 * 6);
+                rigidBody.velocity = v;
+            }
+        }
+
+
+    }*/
+
+    void AirControl(){
 		float x = Input.GetAxisRaw("Horizontal");
 		float z = Input.GetAxisRaw("Vertical");
 		Vector3 inputVec = new Vector3(x, 0, z);
