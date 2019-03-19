@@ -6,6 +6,11 @@ TagManager:
   tags:
   - Scroll
   - wall
+  - Weapon
+  - Door_Hinge
+  - WeaponPickup
+  - Trap
+  - Breakable
   layers:
   - Default
   - TransparentFX

@@ -8,7 +8,8 @@ public class PickupScroll : MonoBehaviour
 
     //public GameObject pickupEffect;
     public Text countText;
-    private int count;
+    public Text finishText;
+    public int count;
 
 
     public int CurrentHealth { get; set; }
@@ -23,10 +24,11 @@ public class PickupScroll : MonoBehaviour
 
         count = 0;
         SetCountText();
+        finishText.text = "";
 
         //Healthbar
-        MaxHealth = 100;
-        CurrentHealth = MaxHealth;
+        MaxHealth = 150;
+        CurrentHealth = 0;
         HealthBar.value = CurrentHealth;
 
 
@@ -34,30 +36,9 @@ public class PickupScroll : MonoBehaviour
 
     void Update()
     {
+        if (CurrentHealth > MaxHealth) CurrentHealth = MaxHealth;
         HealthBar.value = CurrentHealth;
-        if (Input.GetKeyDown(KeyCode.X))
-        {
-            DealDamage(5);
-        }
     }
-
-
-    void DealDamage(int damageValue)
-    {
-        CurrentHealth -= damageValue;
-        if (CurrentHealth <= 0)
-        {
-            Die();
-        }
-    }
-
-
-    void Die()
-    {
-        CurrentHealth = 0;
-        Debug.Log("you are dead");
-    }
-
 
     void OnTriggerEnter(Collider other)
 
@@ -69,7 +50,16 @@ public class PickupScroll : MonoBehaviour
             Destroy(other.gameObject);
             count += 1;
             SetCountText();
-            CurrentHealth += 35;
+            CurrentHealth += 50;
+        }
+
+        else if(other.gameObject.CompareTag("Finish"))
+        {
+            if (count >= 6)
+            {
+                finishText.text = "You Win!\n You found all 6 Scrolls";
+            }
+            else finishText.text = "You Finished! But You Only Found\n " + count.ToString() + " Scrolls\n Try to find them All!";
         }
     }
 

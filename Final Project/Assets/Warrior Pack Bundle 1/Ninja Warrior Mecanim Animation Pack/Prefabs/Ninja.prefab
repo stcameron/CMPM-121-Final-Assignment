@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 11402158}
   - component: {fileID: 11497932}
   - component: {fileID: 2889558139619402866}
+  - component: {fileID: 5579881617081917857}
   - component: {fileID: 5491616}
   - component: {fileID: 13691616}
   m_Layer: 0
@@ -124,12 +125,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a40c44bf459005b4e8aaffd56e6a93f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pickupEffect: {fileID: 0}
   countText: {fileID: 0}
-  speed: 4
-  rotSpeed: 80
-  rot: 0
-  gravity: 8
+  HealthBar: {fileID: 0}
+--- !u!114 &5579881617081917857
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7efe791b48ae1347a942ecf1538e48c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!54 &5491616
 Rigidbody:
   m_ObjectHideFlags: 0

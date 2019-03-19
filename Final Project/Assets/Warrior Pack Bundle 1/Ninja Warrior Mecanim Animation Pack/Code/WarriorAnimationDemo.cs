@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public enum Warrior{
 	Karate,
@@ -18,7 +20,10 @@ public enum Warrior{
 
 public class WarriorAnimationDemo : MonoBehaviour{
 
-	[HideInInspector]
+    public Transform cameraTransform;
+    public Text Deathtext;
+
+    [HideInInspector]
 	public Animator animator;
 	public Warrior warrior;
 	private IKHands ikhands;
@@ -94,6 +99,7 @@ public class WarriorAnimationDemo : MonoBehaviour{
 
     void Start()
     {
+        Deathtext.text = "";
         pickup = GetComponent<PickupScroll>();
 
         animator = this.GetComponent<Animator>();
@@ -146,6 +152,12 @@ public class WarriorAnimationDemo : MonoBehaviour{
 	}
 
 	void Update(){
+
+        // if player falls or dies from trap.  Restart Scene
+        if(Input.GetKeyDown(KeyCode.R) || transform.position.y < -30)
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
 
         //Code to increase runspeed / dash if dash meter is above 0
         if (Input.GetButton("Dash") && pickup.CurrentHealth > 0 && ! isInAir)
@@ -284,7 +296,7 @@ public class WarriorAnimationDemo : MonoBehaviour{
 			float inputDashHorizontal = Input.GetAxisRaw("DashHorizontal");
 			float inputDashVertical = Input.GetAxisRaw("DashVertical");
 			//Camera relative movement
-			Transform cameraTransform = Camera.main.transform;
+			//Transform cameraTransform = Camera.main.transform;
 			//Forward vector relative to the camera along the x-z plane   
 			Vector3 forward = cameraTransform.TransformDirection(Vector3.forward);
 			forward.y = 0;
@@ -1086,9 +1098,23 @@ public class WarriorAnimationDemo : MonoBehaviour{
 		}
 		dead = false;
 	}
+    #endregion
 
-	//Placeholder functions for Animation events
-	public void Hit(){
+    #region Hitting Traps
+    void OnCollisionEnter(Collision other)
+
+    {
+      if (other.gameObject.CompareTag("Trap"))
+        {
+            Dead();
+            Deathtext.text = "You are Dead!\n Press 'R' to try again";
+        }
+    }
+    #endregion
+
+
+    //Placeholder functions for Animation events
+    public void Hit(){
 	}
 	
 	public void Shoot(){
@@ -1105,8 +1131,6 @@ public class WarriorAnimationDemo : MonoBehaviour{
 	
 	public void WeaponSwitch(){
 	}
-
-	#endregion
 
 	#region IKHandsBlending
 

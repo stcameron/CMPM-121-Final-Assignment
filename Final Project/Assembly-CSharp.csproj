@@ -61,11 +61,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scenes\Scripts\AnimationScript.cs" />
+    <Compile Include="Assets\Scenes\Scripts\CameraCollision.cs" />
+    <Compile Include="Assets\Scenes\Scripts\CameraFollow.cs" />
+    <Compile Include="Assets\Scenes\Scripts\Door_Script.cs" />
     <Compile Include="Assets\Scenes\Scripts\PickupScroll.cs" />
+    <Compile Include="Assets\Scenes\Scripts\Projectile.cs" />
+    <Compile Include="Assets\Scenes\Scripts\Shuriken.cs" />
     <Compile Include="Assets\Warrior Pack Bundle 1\Ninja Warrior Mecanim Animation Pack\Code\CameraController.cs" />
     <Compile Include="Assets\Warrior Pack Bundle 1\Ninja Warrior Mecanim Animation Pack\Code\GUIControls.cs" />
     <Compile Include="Assets\Warrior Pack Bundle 1\Ninja Warrior Mecanim Animation Pack\Code\IKHands.cs" />
     <Compile Include="Assets\Warrior Pack Bundle 1\Ninja Warrior Mecanim Animation Pack\Code\WarriorAnimationDemo.cs" />
+    <None Include="Assets\Easy DG Assets 1 - Wood + Stone\README.txt" />
     <None Include="Assets\sryurikennset\Readmejp.txt" />
     <None Include="Assets\sryurikennset\Readme.txt" />
     <Reference Include="Unity.TextMeshPro.Editor">
