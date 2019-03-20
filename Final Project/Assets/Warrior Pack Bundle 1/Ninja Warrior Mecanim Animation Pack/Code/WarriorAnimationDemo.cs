@@ -23,6 +23,12 @@ public class WarriorAnimationDemo : MonoBehaviour{
     public Transform cameraTransform;
     public Text Deathtext;
 
+    public AudioClip MusicClip;
+    public AudioSource MusicSource;
+
+    public AudioClip dashClip;
+    public AudioSource dashSource;
+
     [HideInInspector]
 	public Animator animator;
 	public Warrior warrior;
@@ -99,6 +105,11 @@ public class WarriorAnimationDemo : MonoBehaviour{
 
     void Start()
     {
+        MusicSource.clip = MusicClip;
+        MusicSource.Play();
+
+        dashSource.clip = dashClip;
+
         Deathtext.text = "";
         pickup = GetComponent<PickupScroll>();
 
@@ -152,6 +163,11 @@ public class WarriorAnimationDemo : MonoBehaviour{
 	}
 
 	void Update(){
+        //plays BackGround  Music
+        if(Input.GetKeyDown(KeyCode.M))
+        {
+            MusicSource.Stop();
+        }
 
         // if player falls or dies from trap.  Restart Scene
         if(Input.GetKeyDown(KeyCode.R) || transform.position.y < -30)
@@ -162,6 +178,7 @@ public class WarriorAnimationDemo : MonoBehaviour{
         //Code to increase runspeed / dash if dash meter is above 0
         if (Input.GetButton("Dash") && pickup.CurrentHealth > 0 && ! isInAir)
         {
+            dashSource.Play();
             runSpeed = 16f;
             pickup.CurrentHealth -= 1;
         }

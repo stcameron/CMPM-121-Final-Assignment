@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 public class PickupScroll : MonoBehaviour
 {
+    //audio effect
+    public AudioClip MusicClip;
+    public AudioSource MusicSource;
 
     //public GameObject pickupEffect;
     public Text countText;
@@ -21,7 +24,7 @@ public class PickupScroll : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        MusicSource.clip = MusicClip;
         count = 0;
         SetCountText();
         finishText.text = "";
@@ -48,6 +51,7 @@ public class PickupScroll : MonoBehaviour
         {
             //Instantiate(pickupEffect, other.transform.position, other.transform.rotation);
             Destroy(other.gameObject);
+            MusicSource.Play();
             count += 1;
             SetCountText();
             CurrentHealth += 50;
